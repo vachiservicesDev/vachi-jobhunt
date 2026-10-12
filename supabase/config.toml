@@ -1,0 +1,30 @@
+project_id = "vachi-jobhunt"
+
+[api]
+schemas = ["public", "jobs", "sponsor", "billing"]
+extra_search_path = ["public", "extensions"]
+
+[auth]
+site_url = "vachijobhunt://"
+additional_redirect_urls = ["vachijobhunt://auth-callback", "exp://**"]
+
+[auth.email]
+enable_signup = true
+otp_length = 6
+
+[edge_runtime]
+policy = "per_worker"
+
+# User-facing functions verify the caller's JWT at the gateway.
+[functions.parse-resume]
+verify_jwt = true
+[functions.update-preferences]
+verify_jwt = true
+[functions.delete-account]
+verify_jwt = true
+
+# Workers are called by pg_cron with a shared secret, not a user JWT.
+[functions.ingest-jobs]
+verify_jwt = false
+[functions.score-matches]
+verify_jwt = false

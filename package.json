@@ -1,0 +1,23 @@
+{
+  "name": "vachi-jobhunt",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "mobile": "npm run start -w @vachi/mobile",
+    "test:db": "node supabase/tests/check-migrations.mjs",
+    "check:functions": "npx --yes deno check --config supabase/functions/deno.json supabase/functions/*/index.ts",
+    "check": "npm run typecheck && npm test && npm run test:db && npm run check:functions"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@electric-sql/pglite-pgvector": "^0.0.9"
+  }
+}
