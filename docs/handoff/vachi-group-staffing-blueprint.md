@@ -35,7 +35,7 @@ Revenue for this side comes from client billing margin and direct-hire fees. H1B
 | Database | Its own Supabase project (`vachi-jobhunt`) | Share logins and job posts with the Vachi website/portal project, so staff and candidates use one portal |
 | Pricing | $19 to $29 / month consumer plan | Placement revenue first; consumer plan optional |
 
-Suggested middle path for the first conflict: keep the invariant and add a "standing approval" that the candidate signs once per rule (score threshold, daily cap, lanes 1 to 3 only). The server still never submits on its own judgment, every application keeps an approval record, and LinkedIn and Indeed stay manual.
+Suggested middle path for the first conflict: a "standing approval" that the candidate signs once per rule (score threshold, daily cap, lanes 1 to 3 only). This is a change to invariant D7, not a way around it: today the submit trigger requires approval of each exact packet hash, and a rule-level approval broadens what counts as approval. If the owner chooses it, update D7 and the trigger in `20261009000800_pipeline.sql` in the same PR, record which rule approved each packet, and keep LinkedIn and Indeed manual.
 
 ## Decisions for Ravi
 
